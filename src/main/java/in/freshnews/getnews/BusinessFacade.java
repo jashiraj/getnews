@@ -12,8 +12,9 @@ public class BusinessFacade {
 
     @Autowired
     private InShortsServiceGateway service;
+
     public Models fetchAndProcessNews(String category) {
-      log.info("forwarding call to inshortsservicegateway-->");
+        log.info("forwarding call to inshortsservicegateway-->");
         Models result = service.getNewsByCategory(category);
         return result;
     }

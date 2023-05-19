@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 public class NewsResource {
     @Autowired
-    private BusinessFacade bsn;
+    private BusinessFacade logic;
     @GetMapping(value = "/getTopHeadline")
     public ResponseEntity getTopHeadline(@RequestParam("category") String category) {
         // call inshortServiceGateway
 //        InShortsServiceGateway service = new InShortsServiceGateway();
         log.info(" >> incoming call for getTopHeadline in category -> {}", category);
         log.info("forwarding call to businessfacade --->");
-        Models result = bsn.fetchAndProcessNews(category);
+        Models result = logic.fetchAndProcessNews(category);
         // filter 1st news
         log.info("sending response to user: "+ result.getData());
         return new ResponseEntity(result.getData(), HttpStatus.OK);
