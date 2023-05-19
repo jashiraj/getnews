@@ -9,6 +9,6 @@ import java.util.List;
 @Setter
 public class Models {
         String category;
-        List<Data> data;
+        List<DataItem> data;
         Boolean success;
 }

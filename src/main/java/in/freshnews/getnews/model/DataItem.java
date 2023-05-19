@@ -1,11 +1,8 @@
 package in.freshnews.getnews.model;
 
 
-import lombok.Getter;
-import lombok.Setter;
-
 @lombok.Data
-public class Data {
+public class DataItem {
   String author;
   /*    String content;
     String date;
