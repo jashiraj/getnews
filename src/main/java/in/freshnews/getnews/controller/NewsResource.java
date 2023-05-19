@@ -23,7 +23,7 @@ public class NewsResource {
         // call inshortServiceGateway
 //        InShortsServiceGateway service = new InShortsServiceGateway();
         log.info(" >> incoming call for getTopHeadline in category -> {}", category);
-        log.info("forwarding call to service --->");
+        log.info("forwarding call to businessfacade --->");
         Models result = bsn.fetchAndProcessNews(category);
         // filter 1st news
         log.info("sending response to user: "+ result.getData());
