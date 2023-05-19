@@ -1,8 +1,8 @@
 package in.freshnews.getnews.controller;
 
 import in.freshnews.getnews.BusinessFacade;
+import in.freshnews.getnews.model.DataItem;
 import in.freshnews.getnews.model.Models;
-import in.freshnews.getnews.services.InShortsServiceGateway;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/newsapi")
@@ -24,9 +26,9 @@ public class NewsResource {
 //        InShortsServiceGateway service = new InShortsServiceGateway();
         log.info(" >> incoming call for getTopHeadline in category -> {}", category);
         log.info("forwarding call to businessfacade --->");
-        Models result = logic.fetchAndProcessNews(category);
+        List<DataItem> listOfDataItem = logic.fetchAndProcessNews(category);
         // filter 1st news
-        log.info("sending response to user: "+ result.getData());
-        return new ResponseEntity(result.getData(), HttpStatus.OK);
+        log.info("sending response to user: "+ listOfDataItem);
+        return new ResponseEntity(listOfDataItem, HttpStatus.OK);
     }
 }
