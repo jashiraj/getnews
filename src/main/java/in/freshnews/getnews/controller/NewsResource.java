@@ -25,10 +25,15 @@ public class NewsResource {
         // call inshortServiceGateway
 //        InShortsServiceGateway service = new InShortsServiceGateway();
         log.info(" >> incoming call for getTopHeadline in category -> {}", category);
-        log.info("forwarding call to businessfacade --->");
-        List<DataItem> listOfDataItem = logic.fetchAndProcessNews(category);
-        // filter 1st news
-        log.info("sending response to user: "+ listOfDataItem);
-        return new ResponseEntity(listOfDataItem, HttpStatus.OK);
-    }
+        if(category == null || category.isEmpty()) {
+            log.error("no category found");
+            return new ResponseEntity("please select a categorsy", HttpStatus.BAD_REQUEST);
+        }
+                log.info("forwarding call to businessfacade --->");
+                List<DataItem> listOfDataItem = logic.fetchAndProcessNews(category);
+                // filter 1st news
+                log.info("sending response to user: " + listOfDataItem);
+                return new ResponseEntity(listOfDataItem, HttpStatus.OK);
+            }
+
 }
