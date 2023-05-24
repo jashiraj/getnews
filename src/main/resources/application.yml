@@ -1,0 +1,27 @@
+backend:
+  inshorts:
+    url: https://inshorts.deta.dev/news?category=
+hystrix:
+  command:
+    default:
+      circuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 5
+        sleepWindowInMilliseconds : 10000
+        errorThresholdPercentage: 80
+        forceOpen: false
+        forceClosed : false
+      fallback:
+        enabled: false
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 10000
+
+logging:
+  level:
+    com.netflix.hystrix: debug
+
