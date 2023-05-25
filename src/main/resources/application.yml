@@ -1,12 +1,17 @@
 backend:
   inshorts:
     url: https://inshorts.deta.dev/news?category=
+spring:
+  cloud:
+    circuit:
+      breaker:
+        enabled: false
 hystrix:
   command:
     default:
       circuitBreaker:
-        enabled: true
-        requestVolumeThreshold: 5
+        enabled: false
+        requestVolumeThreshold: 100
         sleepWindowInMilliseconds : 10000
         errorThresholdPercentage: 80
         forceOpen: false

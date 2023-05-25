@@ -19,7 +19,13 @@ public class BusinessFacade {
     public List<DataItem> fetchAndProcessNews(String category) {
         log.info("forwarding call to inshortsservicegateway-->");
         Models result = service.getNewsByCategory(category);
-        result.getData().subList(0,2);
+        //result.getData().subList(0,2);
         return result.getData().subList(0,2);
+    }
+
+    public List<DataItem> fetchAndProcessAllNews(String category) {
+        log.info("forwarding call to inshortsservicegateway-->");
+        Models result = service.getNewsByCategory(category);
+        return result.getData();
     }
 }
