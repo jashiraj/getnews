@@ -1,0 +1,32 @@
+backend:
+  inshorts:
+    url: https://inshorts.deta.dev/news?category=
+spring:
+  cloud:
+    circuit:
+      breaker:
+        enabled: false
+hystrix:
+  command:
+    default:
+      circuitBreaker:
+        enabled: false
+        requestVolumeThreshold: 100
+        sleepWindowInMilliseconds : 10000
+        errorThresholdPercentage: 80
+        forceOpen: false
+        forceClosed : false
+      fallback:
+        enabled: false
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 10000
+
+logging:
+  level:
+    com.netflix.hystrix: debug
+

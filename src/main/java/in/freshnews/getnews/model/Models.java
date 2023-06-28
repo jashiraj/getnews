@@ -10,5 +10,6 @@ import java.util.List;
 public class Models {
         String category;
         List<DataItem> data;
+
         Boolean success;
 }
