@@ -9,7 +9,6 @@ public class DataItem {
     String id;
     String imageUrl;
    // String readMoreURL;
-
    String title;
    String date;
    String time;

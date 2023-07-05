@@ -1,6 +1,6 @@
 backend:
   inshorts:
-    url: https://inshorts.deta.dev/news?category=
+    url: https://inshorts-news-knbl9pokb-sumanjay.vercel.app/news?category=
 spring:
   cloud:
     circuit:

@@ -53,6 +53,26 @@ public class NewsResource {
     @GetMapping(value = "/getAllNewsItems")
     public ResponseEntity<List<DataItem>> getAllHeadline(@RequestParam("category") String category) {
         // call inshortServiceGateway
+        //InShortsServiceGateway service = new InShortsServiceGateway();
+        log.info(" >> incoming call for getTopHeadline in category -> {}", category);
+        if (category == null || category.isEmpty()) {
+            log.error("no category found");
+            return new ResponseEntity("please select a category", HttpStatus.BAD_REQUEST);
+        }
+        log.info("forwarding call to businessLogic --->");
+        List<DataItem> listOfDataItem = logic.fetchAndProcessAllNews(category);
+        // filter 1st news
+        log.info("sending response to user: " + listOfDataItem);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+        headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET");
+        return new ResponseEntity(listOfDataItem, headers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getAllNewsItems/{category}" )
+    public ResponseEntity<List<DataItem>> getAllHeadlineWithPathVariable(@PathVariable String category) {
+        // call inshortServiceGateway
 //        InShortsServiceGateway service = new InShortsServiceGateway();
         log.info(" >> incoming call for getTopHeadline in category -> {}", category);
         if (category == null || category.isEmpty()) {

@@ -7,9 +7,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+
+import static in.freshnews.getnews.utils.DateHelper.stringToDate;
 
 @Component
 @Log4j2
@@ -34,8 +38,9 @@ public class BusinessFacade {
         return sortedList;
     }
 
-    private List<DataItem> sortResult(List<DataItem> unsorted) {
+    protected List<DataItem> sortResult(List<DataItem> unsorted){
         Comparator<DataItem> compareByAuthorName = Comparator.comparing(DataItem::getAuthor).thenComparing(DataItem::getTitle);
+      //Date date = stringToDate(unsorted.get(0).getDate());
         Collections.sort(unsorted, compareByAuthorName);
         // now its sorted
         return unsorted;
