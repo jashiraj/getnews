@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static in.freshnews.getnews.utils.DateHelper.stringToDate;
 
@@ -49,9 +50,16 @@ public class BusinessFacade {
     public List<DataItem> fetchAndProcessAllNews(String category) {
         log.info("forwarding call to inshortsservicegateway-->");
         Models result = service.getNewsByCategory(category);
+        // ToDO: Filter out every news item, where Author name does not start with "A"
         unsortedList = result.getData();
-        sortedList = sortResult(unsortedList);
+        List<DataItem> filteredList = unsortedList.stream()
+                .filter(item -> item.getAuthor()
+                        .startsWith("D"))
+                .collect(Collectors.toList());
+        sortedList = sortResult(filteredList);
+        //sortedList = sortResult(unsortedList);
         return sortedList;
+
     }
 
 
