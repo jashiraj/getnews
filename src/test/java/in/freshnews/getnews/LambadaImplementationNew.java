@@ -23,6 +23,6 @@ interface ConvertString{
 
 public class LambadaImplementationNew {
     public static void main(String[] args) {
-        List<String> listOfString = ()
+
     }
 }
