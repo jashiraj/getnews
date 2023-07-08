@@ -14,5 +14,7 @@ public class DataItem {
    String time;
    String url;
    long wordCount;
+   String readDuration;
+
 
 }

@@ -1,7 +1,6 @@
 package in.freshnews.getnews;
 
 
-import in.freshnews.getnews.BusinessFacade;
 import in.freshnews.getnews.model.DataItem;
 import in.freshnews.getnews.model.Models;
 import in.freshnews.getnews.services.InShortsServiceGateway;
@@ -86,12 +85,39 @@ public class BusinessFacadeTest {
         Mockito.when(service.getNewsByCategory(eq("abcd"))).thenReturn(mockedResponse);
         businessFacade.setService(service);
 
-        List<DataItem> output = businessFacade.fetchAndProcessAllNews(" abcd");
+        List<DataItem> output = businessFacade.fetchAndProcessAllNews("abcd");
 
         assertEquals(1L ,output.get(0).getWordCount());
         assertEquals(2L ,output.get(1).getWordCount());
         assertEquals(6L ,output.get(2).getWordCount());
         assertEquals(4L ,output.get(3).getWordCount());
 
+    }
+
+    @Test
+    void testCalculateDuration() {
+        DataItem d1 = new DataItem();
+        d1.setWordCount(46l);
+
+        DataItem d2 = new DataItem();
+        d2.setWordCount(65l);
+
+        DataItem d3 = new DataItem();
+        d3.setWordCount(25l);
+
+
+        DataItem d4 = new DataItem();
+        d4.setWordCount(54l);
+
+        List<DataItem> input = new ArrayList<>();
+
+        Collections.addAll(input, d1, d2, d3, d4);
+
+        List<DataItem> output = businessFacade.calculateDuration(input);
+
+        assertEquals("2min" ,output.get(0).getReadDuration());
+        assertEquals("4min" ,output.get(1).getReadDuration());
+        assertEquals("1min" ,output.get(2).getReadDuration());
+        assertEquals("3min" ,output.get(3).getReadDuration());
     }
 }

@@ -46,19 +46,33 @@ public class BusinessFacade {
         Models result = service.getNewsByCategory(category);
         // ToDO: Filter out every news item, where Author name does not start with "A"
         unsortedList = result.getData();
-/*        List<DataItem> filteredList = unsortedList.stream()
-                .filter(item -> item.getAuthor()
-                        .startsWith("D"))
-                .collect(Collectors.toList());*/
+/*        List<DataItem> filteredList = unsortedList.stream().filter(item -> item.getAuthor().startsWith("D")).collect(Collectors.toList());*/
        // sortedList = sortResult(filteredList);
+
         for (DataItem element: unsortedList) {
             long c = Arrays.stream(element.getContent().split("\\s+")).count();
             element.setWordCount(c);
         }
 
+        unsortedList = calculateDuration(unsortedList);
         sortedList = sortResult(unsortedList);
         return sortedList;
 
+    }
+
+    protected List<DataItem> calculateDuration(List<DataItem> unsortedList) {
+        for (DataItem element: unsortedList) {
+            if (element.getWordCount() > 55) {
+                element.setReadDuration("4min");
+            } else if (element.getWordCount() > 50) {
+                element.setReadDuration("3min");
+            } else if (element.getWordCount() > 45) {
+                element.setReadDuration("2min");
+            } else {
+                element.setReadDuration("1min");
+            }
+        }
+        return unsortedList;
     }
 
     void setService(InShortsServiceGateway mock) {
