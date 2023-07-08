@@ -1,6 +1,11 @@
 backend:
   inshorts:
     url: https://inshorts-news-knbl9pokb-sumanjay.vercel.app/news?category=
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,beans,heapdump
 spring:
   cloud:
     circuit:

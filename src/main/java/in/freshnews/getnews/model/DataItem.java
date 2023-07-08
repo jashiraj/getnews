@@ -13,5 +13,6 @@ public class DataItem {
    String date;
    String time;
    String url;
+   long wordCount;
 
 }

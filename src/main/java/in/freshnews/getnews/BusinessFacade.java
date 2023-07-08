@@ -7,14 +7,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.ParseException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
-import static in.freshnews.getnews.utils.DateHelper.stringToDate;
 
 @Component
 @Log4j2
@@ -52,15 +46,22 @@ public class BusinessFacade {
         Models result = service.getNewsByCategory(category);
         // ToDO: Filter out every news item, where Author name does not start with "A"
         unsortedList = result.getData();
-        List<DataItem> filteredList = unsortedList.stream()
+/*        List<DataItem> filteredList = unsortedList.stream()
                 .filter(item -> item.getAuthor()
                         .startsWith("D"))
-                .collect(Collectors.toList());
-        sortedList = sortResult(filteredList);
-        //sortedList = sortResult(unsortedList);
+                .collect(Collectors.toList());*/
+       // sortedList = sortResult(filteredList);
+        for (DataItem element: unsortedList) {
+            long c = Arrays.stream(element.getContent().split("\\s+")).count();
+            element.setWordCount(c);
+        }
+
+        sortedList = sortResult(unsortedList);
         return sortedList;
 
     }
 
-
+    void setService(InShortsServiceGateway mock) {
+        this.service = mock;
+    }
 }
